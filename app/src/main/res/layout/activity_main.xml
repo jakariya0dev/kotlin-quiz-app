@@ -6,8 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
+    android:gravity="center"
     android:background="#304459"
     tools:context=".MainActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/bb"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
 
     <RelativeLayout
         android:layout_marginBottom="4dp"
@@ -15,6 +26,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_ques_no_id"
             android:text="Quiz: 1/5"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -37,6 +49,7 @@
         android:layout_height="2dp"/>
 
     <TextView
+        android:id="@+id/tv_ques_id"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,50 +65,54 @@
         android:layout_height="24dp"/>
 
     <RelativeLayout
-
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/opt_layout_coner_radius"
+        android:id="@+id/rl_o1_id"
         android:layout_width="match_parent"
-        android:layout_height="65dp">
+        android:layout_height="65dp"
+        android:background="@drawable/opt_layout_coner_radius"
+        android:gravity="center_vertical"
+        android:padding="8dp">
 
         <TextView
-            android:layout_marginEnd="16dp"
-            android:id="@+id/tv_opt_serial_id"
-            android:background="@drawable/opt_serial_bg"
-            android:text="A"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_width="50dp"
-            android:gravity="center"
-            android:layout_height="50dp"/>
-
-
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/tv_opt_serial_id"
-            android:text="This is a option"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:visibility="invisible"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_check_circle_24"
+            android:id="@+id/tv_opt_serial1_id"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/opt_serial_bg"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_o1_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_opt_serial1_id"
+            android:text="This is a option"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_o1_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:visibility="invisible"
             app:tint="@color/secondary_color" />
 
 
-
     </RelativeLayout>
+
     <Space
     android:layout_width="match_parent"
     android:layout_height="24dp"/>
+
     <RelativeLayout
+        android:id="@+id/rl_o2_id"
         android:padding="8dp"
         android:gravity="center_vertical"
         android:background="@drawable/opt_layout_coner_radius"
@@ -104,9 +121,9 @@
 
         <TextView
             android:layout_marginEnd="16dp"
-            android:id="@+id/tv_opt_serial_id"
+            android:id="@+id/tv_opt_serial2_id"
             android:background="@drawable/opt_serial_bg"
-            android:text="A"
+            android:text="B"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
@@ -116,118 +133,129 @@
 
 
         <TextView
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/tv_opt_serial_id"
-            android:text="This is a option"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:id="@+id/tv_o2_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_opt_serial2_id"
+            android:text="This is a option"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <ImageView
-            android:visibility="invisible"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_check_circle_24"
+            android:id="@+id/iv_o2_id"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:visibility="invisible"
             app:tint="@color/secondary_color" />
 
 
 
     </RelativeLayout>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="24dp"/>
+
     <RelativeLayout
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/opt_layout_coner_radius"
+        android:id="@+id/rl_o3_id"
         android:layout_width="match_parent"
-        android:layout_height="65dp">
+        android:layout_height="65dp"
+        android:background="@drawable/opt_layout_coner_radius"
+        android:gravity="center_vertical"
+        android:padding="8dp">
 
         <TextView
-            android:layout_marginEnd="16dp"
             android:id="@+id/tv_opt_serial_id"
-            android:background="@drawable/opt_serial_bg"
-            android:text="A"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/opt_serial_bg"
             android:gravity="center"
-            android:layout_height="50dp"/>
+            android:text="C"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
         <TextView
+            android:id="@+id/tv_o3_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/tv_opt_serial_id"
             android:text="This is a option"
-            android:textSize="20sp"
             android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="20sp" />
 
         <ImageView
-            android:visibility="invisible"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_check_circle_24"
+            android:id="@+id/iv_o3_id"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:visibility="invisible"
             app:tint="@color/secondary_color" />
 
 
-
     </RelativeLayout>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="24dp"/>
+
     <RelativeLayout
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/opt_layout_coner_radius"
+        android:id="@+id/rl_o4_id"
         android:layout_width="match_parent"
-        android:layout_height="65dp">
+        android:layout_height="65dp"
+        android:background="@drawable/opt_layout_coner_radius"
+        android:gravity="center_vertical"
+        android:padding="8dp">
 
         <TextView
-            android:layout_marginEnd="16dp"
-            android:id="@+id/tv_opt_serial_id"
-            android:background="@drawable/opt_serial_bg"
-            android:text="A"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_width="50dp"
-            android:gravity="center"
-            android:layout_height="50dp"/>
-
-
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/tv_opt_serial_id"
-            android:text="This is a option"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-
-            android:visibility="visible"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_check_circle_24"
+            android:id="@+id/tv_opt_serial4_id"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/opt_serial_bg"
+            android:gravity="center"
+            android:text="D"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_o4_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_opt_serial4_id"
+            android:text="This is a option"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_o4_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
             android:backgroundTint="@color/secondary_color"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:visibility="invisible"
             app:tint="@color/secondary_color" />
 
 
-
     </RelativeLayout>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="24dp"/>
 
     <Button
+        android:id="@+id/btn_next_id"
         android:backgroundTint="@color/secondary_color"
         android:layout_width="match_parent"
         android:layout_height="65dp"
