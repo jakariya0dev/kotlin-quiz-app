@@ -1,17 +1,19 @@
 package info.jakariya.kotlinquizapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
-    private val questions = listOf<ModelQuestion>(
+    private val questions = listOf(
         ModelQuestion(
             "বঙ্গবন্ধু শেখ মুজিবুর রহমান পাকিস্তানের কারাগার থেকে মুক্তি পান কতো তারিখে?",
             "৯ জানুয়ারী ১৯৭২",
@@ -35,33 +37,63 @@ class MainActivity : AppCompatActivity() {
             "১০ বছর",
             "৮ বছর",
             "a"
-        )
+        ),
+        ModelQuestion(
+            "বঙ্গবন্ধু শেখ মুজিবুর রহমান রচিত গ্রন্থ কোনটি?",
+            "সত্য মামলা আগরতলা",
+            "অবরুদ্ধ নয় মাস",
+            "অসমাপ্ত আত্মজীবনী",
+            "বাংলাদেশ কথা কয়",
+            "c"
+        ),
+        ModelQuestion(
+            "কোন পত্রিকা শেখ মুজিবুর রহমানকে রাজনীতির কবি উপাধি দিয়েছিলো ",
+            "নিউজ উইকস",
+            "দি ইকনমিস্ট",
+            "টাইম",
+            "গার্ডিয়ান",
+            "a"
+        ),
     )
 
-    var index = 0
+    private var index = 0
+    private var rightAns = 0
+    private var isOptSelected = false
 
-    lateinit var rlOpt1 :RelativeLayout
-    lateinit var rlOpt2 :RelativeLayout
-    lateinit var rlOpt3 :RelativeLayout
-    lateinit var rlOpt4 :RelativeLayout
+    private lateinit var rlOpt1 :RelativeLayout
+    private lateinit var rlOpt2 :RelativeLayout
+    private lateinit var rlOpt3 :RelativeLayout
+    private lateinit var rlOpt4 :RelativeLayout
 
-    lateinit var tvQues :TextView
-    lateinit var tvOpt1 :TextView
-    lateinit var tvOpt2 :TextView
-    lateinit var tvOpt3 :TextView
-    lateinit var tvOpt4 :TextView
+    private lateinit var tvQues :TextView
+    private lateinit var tvOpt1 :TextView
+    private lateinit var tvOpt2 :TextView
+    private lateinit var tvOpt3 :TextView
+    private lateinit var tvOpt4 :TextView
 
-    lateinit var ivOpt1 :ImageView
-    lateinit var ivOpt2 :ImageView
-    lateinit var ivOpt3 :ImageView
-    lateinit var ivOpt4 :ImageView
+    private lateinit var ivOpt1 :ImageView
+    private lateinit var ivOpt2 :ImageView
+    private lateinit var ivOpt3 :ImageView
+    private lateinit var ivOpt4 :ImageView
 
-    lateinit var btnNext :Button
-    lateinit var tvQuesNo :TextView
+    private lateinit var btnNext :Button
+    private lateinit var tvQuesNo :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        Code for Alert Dialog
+
+        val builder = AlertDialog.Builder(this)
+        val resultView = LayoutInflater.from(this).inflate(R.layout.result_layout, null)
+        builder.setView(resultView)
+        builder.setCancelable(false)
+        val tvTotalQuestion = resultView.findViewById<TextView>(R.id.tv_total_questions_id)
+        val tvRightAns = resultView.findViewById<TextView>(R.id.tv_right_ans_id)
+        val btnClose = resultView.findViewById<Button>(R.id.btn_close_id)
+        val alertDialog = builder.create()
+
 
         rlOpt1 = findViewById(R.id.rl_o1_id)
         rlOpt2 = findViewById(R.id.rl_o2_id)
@@ -94,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             ivOpt2.visibility = View.INVISIBLE
             ivOpt3.visibility = View.INVISIBLE
             ivOpt4.visibility = View.INVISIBLE
-
+            isOptSelected = true
             questions[index].mUserSelectedAns = "a"
         }
         rlOpt2.setOnClickListener {
@@ -102,6 +134,7 @@ class MainActivity : AppCompatActivity() {
             ivOpt2.visibility = View.VISIBLE
             ivOpt3.visibility = View.INVISIBLE
             ivOpt4.visibility = View.INVISIBLE
+            isOptSelected = true
             questions[index].mUserSelectedAns = "b"
         }
         rlOpt3.setOnClickListener {
@@ -109,6 +142,7 @@ class MainActivity : AppCompatActivity() {
             ivOpt2.visibility = View.INVISIBLE
             ivOpt3.visibility = View.VISIBLE
             ivOpt4.visibility = View.INVISIBLE
+            isOptSelected = true
             questions[index].mUserSelectedAns = "c"
         }
         rlOpt4.setOnClickListener {
@@ -116,11 +150,19 @@ class MainActivity : AppCompatActivity() {
             ivOpt2.visibility = View.INVISIBLE
             ivOpt3.visibility = View.INVISIBLE
             ivOpt4.visibility = View.VISIBLE
+            isOptSelected = true
             questions[index].mUserSelectedAns = "d"
         }
 
         btnNext.setOnClickListener {
-            if(index <questions.size-1) {
+            if (!isOptSelected){
+                val sb = Snackbar.make(it, "Please Select an option!", Snackbar.LENGTH_LONG)
+                sb.setAction("Ok", View.OnClickListener {
+                    sb.dismiss()
+                })
+                sb.show()
+            }
+            else if(index <questions.size-1) {
                 index++
                 ivOpt1.visibility = View.INVISIBLE
                 ivOpt2.visibility = View.INVISIBLE
@@ -132,13 +174,27 @@ class MainActivity : AppCompatActivity() {
                 tvOpt3.text = questions[index].mOpt3
                 tvOpt4.text = questions[index].mOpt4
                 tvQuesNo.text = "${index + 1}/${questions.size}"
+                isOptSelected = false
                 if (index == questions.size-1) btnNext.text = "Submit"
             }
             else{
                 questions.forEach {
-                    Log.d("ans", it.mUserSelectedAns)
+//                    Log.d("ans", it.mUserSelectedAns)
+                    if (it.mAns == it.mUserSelectedAns) rightAns++
+
                 }
+
+                tvTotalQuestion.text = "Total Questions: " + questions.size.toString()
+                tvRightAns.text = "Right Answer: " + rightAns.toString()
+                alertDialog.show()
             }
+
+        }
+
+        btnClose.setOnClickListener {
+            alertDialog.dismiss()
+            finish()
+            startActivity(intent)
 
         }
 
